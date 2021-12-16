@@ -23,15 +23,16 @@ else
   SUDO="sudo"
 fi
 
+const os = $OSTYPE | tr '[:upper:]' '[:lower:]';
 
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+if [[ "$os" == "linux-gnu"* ]]; then
   echo "Might ask for elevated access:"
   # Linux
   $SUDO apt update
   $SUDO apt install ${tools} -y
 
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+elif [[ "$os" == "darwin"* ]]; then
   # Mac OSX
   $SUDO export PATH="/usr/local/bin:$PATH"
 
@@ -55,7 +56,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 
   $SUDO sh -c "echo $(which zsh) >> /etc/shells" && chsh -s $(which zsh)
 
-elif [[ "$OSTYPE" == "freebsd"* ]]; then
+elif [[ "$os" == "freebsd"* ]]; then
   # FreeBSD
   $SUDO pkg update || echo "Failed to update pkg."
   $SUDO pkg install -y ${tools}  || echo "Failed to install tools, will continue..."
@@ -82,15 +83,15 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+if [[ "$os" == "linux-gnu"* ]]; then
   # Linux
   sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="nilslarson"/g' ./.zshrc
   sed -i -e 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' ./.zshrc
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+elif [[ "$os" == "darwin"* ]]; then
   # Mac OSX
   sed -i "" 's/ZSH_THEME="robbyrussell"/ZSH_THEME="nilslarson"/g' ./.zshrc
   sed -i "" 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' ./.zshrc
-elif [[ "$OSTYPE" == "freebsd"* ]]; then
+elif [[ "$os" == "freebsd"* ]]; then
   # FreeBSD
   sed -i "" 's/ZSH_THEME="robbyrussell"/ZSH_THEME="nilslarson"/g' ./.zshrc
   sed -i "" 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' ./.zshrc
