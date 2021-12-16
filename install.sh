@@ -23,8 +23,7 @@ else
   SUDO="sudo"
 fi
 
-os="$($OSTYPE | tr '[:upper:]' '[:lower:]')"
-
+os=$(echo $OSTYPE | tr '[:upper:]' '[:lower:]')
 
 if [[ "$os" == "linux-gnu"* ]]; then
   echo "Might ask for elevated access:"
