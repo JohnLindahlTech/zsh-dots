@@ -23,7 +23,7 @@ else
   SUDO="sudo"
 fi
 
-os = "$OSTYPE" | tr '[:upper:]' '[:lower:]'
+os="$($OSTYPE | tr '[:upper:]' '[:lower:]')""
 
 
 if [[ "$os" == "linux-gnu"* ]]; then
