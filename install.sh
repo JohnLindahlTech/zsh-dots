@@ -70,13 +70,10 @@ cd ~ || exit
 
 RUNZSH="no" KEEP_ZSHRC="yes" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || echo "Failed to install Oh My ZSH"
 
-rm -rf "./.oh-my-zsh/custom/themes"
-rm -rf "./.oh-my-zsh/custom/plugins"
 
 echo "$DIR"
 
-ln -s "$DIR/themes" "./.oh-my-zsh/custom/themes" || echo ""
-ln -s "$DIR/plugins" "./.oh-my-zsh/custom/plugins" || echo ""
+ln -s "$DIR/themes/nilslarson.zsh-theme" "./.oh-my-zsh/custom/themes/nilslarson.zsh-theme" || echo ""
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || echo ""
 
