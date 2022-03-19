@@ -22,5 +22,5 @@ bash ./install.sh
 
 ## Uninstall
 ```bash
-rm -rf  ~/.p10k.zsh ~/.zshrc ~/.oh-my-zsh
+rm -rf  ~/.p10k.zsh ~/.zshrc ~/.oh-my-zsh ~/.dots
 ```
