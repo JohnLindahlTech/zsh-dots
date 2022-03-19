@@ -44,7 +44,7 @@ elif [[ "$os" == "darwin"* ]]; then
   fi
 
   # Prefetch all binaries
-  brew fetch --deps ${tools} &
+  brew fetch --deps "${tools}" &
   wait
 
   # Install brew cask
@@ -61,7 +61,7 @@ elif [[ "$os" == "darwin"* ]]; then
 elif [[ "$os" == "freebsd"* ]]; then
   # FreeBSD
   $SUDO pkg update || echo "Failed to update pkg."
-  $SUDO pkg install -y ${tools}  || echo "Failed to install tools, will continue..."
+  $SUDO pkg install -y "${tools}"  || echo "Failed to install tools, will continue..."
 else
   #Unknown
   echo "Unknown OS"
@@ -79,28 +79,27 @@ echo "$DIR"
 ln -s "$DOTS_DIR/themes/nilslarson.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/nilslarson.zsh-theme" || echo ""
 cp "$DOTS_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || echo ""
 
-echo 'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' >> "$HOME/.zshrc"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || echo ""
 
 if [[ "$os" == "linux-gnu"* ]]; then
   # Linux
   sed -i -e 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
   sed -i -e 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
+  sed -i -e '$ a POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' "$HOME/.zshrc"
 elif [[ "$os" == "darwin"* ]]; then
   # Mac OSX
   sed -i "" 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
   sed -i "" 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
+  sed -i "" '$ a POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' "$HOME/.zshrc"
 elif [[ "$os" == "freebsd"* ]]; then
   # FreeBSD
   sed -i "" 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
   sed -i "" 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
+  sed -i "" '$ a POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' "$HOME/.zshrc"
 else
   #Unknown
   exit 1
 fi
-
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || echo ""
-
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || echo ""
-
 
