@@ -81,7 +81,7 @@ cp "$DOTS_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || echo ""
 
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || echo ""
 echo "Doint it"
 echo 'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' >>! "$HOME/.zshrc"
 echo "Did it"
