@@ -77,12 +77,13 @@ RUNZSH="no" KEEP_ZSHRC="yes" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/
 echo "$DIR"
 
 ln -s "$DOTS_DIR/themes/nilslarson.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/nilslarson.zsh-theme" || echo ""
-ln -s "$DOTS_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
+cp "$DOTS_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || echo ""
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
+echo 'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' >>! ~/.zshrc
 
 if [[ "$os" == "linux-gnu"* ]]; then
   # Linux
