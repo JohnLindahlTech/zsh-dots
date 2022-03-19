@@ -5,7 +5,7 @@ REPO_URL_GIT="git@github.com:JohnLindahlTech/zsh-dots.git"
 
 DOTS_DIR=$HOME/.dots
 
-git clone $REPO_URL_GIT $DOTS_DIR
+git clone $REPO_URL_HTTPS $DOTS_DIR
 # if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 #   # Linux
 # elif [[ "$OSTYPE" == "darwin"* ]]; then
