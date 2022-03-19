@@ -80,7 +80,7 @@ ln -s "$DOTS_DIR/themes/nilslarson.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/ni
 cp "$DOTS_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 
 
-echo 'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' >>! "$HOME/.zshrc"
+echo 'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' >> "$HOME/.zshrc"
 
 if [[ "$os" == "linux-gnu"* ]]; then
   # Linux
