@@ -3,6 +3,9 @@
 REPO_URL_HTTPS="https://github.com/JohnLindahlTech/zsh-dots.git"
 REPO_URL_GIT="git@github.com:JohnLindahlTech/zsh-dots.git"
 
+DOTS_DIR=$HOME/.dots
+
+git clone $REPO_URL_GIT $DOTS_DIR
 # if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 #   # Linux
 # elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -73,24 +76,26 @@ RUNZSH="no" KEEP_ZSHRC="yes" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/
 
 echo "$DIR"
 
-ln -s "$DIR/themes/nilslarson.zsh-theme" "./.oh-my-zsh/custom/themes/nilslarson.zsh-theme" || echo ""
+ln -s "$DOTS_DIR/themes/nilslarson.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/nilslarson.zsh-theme" || echo ""
+ln -s "$DOTS_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || echo ""
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || echo ""
 
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 
 if [[ "$os" == "linux-gnu"* ]]; then
   # Linux
-  sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="nilslarson"/g' ./.zshrc
-  sed -i -e 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' ./.zshrc
+  sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k/powerlevel10k"/g' "$HOME/.zshrc"
+  sed -i -e 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
 elif [[ "$os" == "darwin"* ]]; then
   # Mac OSX
-  sed -i "" 's/ZSH_THEME="robbyrussell"/ZSH_THEME="nilslarson"/g' ./.zshrc
-  sed -i "" 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' ./.zshrc
+  sed -i "" 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k/powerlevel10k"/g' "$HOME/.zshrc"
+  sed -i "" 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
 elif [[ "$os" == "freebsd"* ]]; then
   # FreeBSD
-  sed -i "" 's/ZSH_THEME="robbyrussell"/ZSH_THEME="nilslarson"/g' ./.zshrc
-  sed -i "" 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' ./.zshrc
+  sed -i "" 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k/powerlevel10k"/g' "$HOME/.zshrc"
+  sed -i "" 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
 else
   #Unknown
   exit 1
