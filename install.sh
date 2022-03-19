@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 REPO_URL_HTTPS="https://github.com/JohnLindahlTech/zsh-dots.git"
 REPO_URL_GIT="git@github.com:JohnLindahlTech/zsh-dots.git"

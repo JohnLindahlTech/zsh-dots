@@ -3,20 +3,20 @@
 ## Requirements
 * curl/wget
 * git
-* bash
+* zsh
 
 ## Install
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/JohnLindahlTech/zsh-dots/main/install.sh)"
+zsh -c "$(curl -fsSL https://raw.githubusercontent.com/JohnLindahlTech/zsh-dots/main/install.sh)"
 ```
 
 ```bash
-bash -c "$(wget https://raw.githubusercontent.com/JohnLindahlTech/zsh-dots/main/install.sh -O -)"
+zsh -c "$(wget https://raw.githubusercontent.com/JohnLindahlTech/zsh-dots/main/install.sh -O -)"
 ```
 
 ```bash
-bash ./install.sh
+zsh ./install.sh
 ```
 
 
