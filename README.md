@@ -1,6 +1,6 @@
 # zsh-dots
 
-## Requirements
+## Prerequirements
 * curl/wget
 * git
 * zsh
@@ -18,7 +18,6 @@ zsh -c "$(wget https://raw.githubusercontent.com/JohnLindahlTech/zsh-dots/main/i
 ```bash
 zsh ./install.sh
 ```
-
 
 ## Uninstall
 ```bash
