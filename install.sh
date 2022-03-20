@@ -91,6 +91,7 @@ if [[ "$os" == "linux-gnu"* ]]; then
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' "$HOME/.zshrc"
   sed -i -e '$ a\
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' "$HOME/.zshrc"
+  rm "$HOME/.zshrc-e"
 elif [[ "$os" == "darwin"* ]]; then
   # Mac OSX
   sed -i "" 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
@@ -99,6 +100,7 @@ elif [[ "$os" == "darwin"* ]]; then
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' "$HOME/.zshrc"
   sed -i '' '$ a\
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' "$HOME/.zshrc"
+  rm "$HOME/.zshrc-e"
 elif [[ "$os" == "freebsd"* ]]; then
   # FreeBSD
   sed -i '' 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
@@ -107,7 +109,7 @@ elif [[ "$os" == "freebsd"* ]]; then
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' "$HOME/.zshrc"
   sed -i '' '$ a\
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' "$HOME/.zshrc"
-
+  rm "$HOME/.zshrc-e"
 else
   #Unknown
   exit 1
