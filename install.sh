@@ -17,7 +17,7 @@ git clone $REPO_URL_HTTPS $DOTS_DIR
 #   exit 1
 # fi
 
-tools="git zsh wget curl nano htop"
+tools=(git zsh wget curl nano htop)
 me="$(whoami)"
 
 if [[ $me == "root" ]]; then
@@ -32,7 +32,10 @@ if [[ "$os" == "linux-gnu"* ]]; then
   echo "Might ask for elevated access:"
   # Linux
   $SUDO apt update
-  $SUDO apt install -y --ignore-missing "${tools}"
+  for p in ${tools}; do
+      $SUDO apt install -y --ignore-missing "${p}"
+  done
+
 
 elif [[ "$os" == "darwin"* ]]; then
   # Mac OSX
@@ -61,7 +64,10 @@ elif [[ "$os" == "darwin"* ]]; then
 elif [[ "$os" == "freebsd"* ]]; then
   # FreeBSD
   $SUDO pkg update || echo "Failed to update pkg."
-  $SUDO pkg install -y "${tools}"  || echo "Failed to install tools, will continue..."
+    for p in ${tools}; do
+      $SUDO pkg install -y "${p}"  || echo "Failed to install tools, will continue..."
+  done
+  
 else
   #Unknown
   echo "Unknown OS"
