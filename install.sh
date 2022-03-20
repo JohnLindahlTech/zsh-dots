@@ -17,7 +17,7 @@ git clone $REPO_URL_HTTPS $DOTS_DIR
 #   exit 1
 # fi
 
-tools=(git zsh wget curl nano htop)
+tools="git zsh wget curl nano htop"
 me="$(whoami)"
 
 if [[ $me == "root" ]]; then
