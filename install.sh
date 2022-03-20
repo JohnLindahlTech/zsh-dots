@@ -91,7 +91,6 @@ if [[ "$os" == "linux-gnu"* ]]; then
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true\n' "$HOME/.zshrc"
   sed -i -e '$ a\
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh\n' "$HOME/.zshrc"
-  rm "$HOME/.zshrc-e"
 
 
 elif [[ "$os" == "darwin"* ]]; then
@@ -99,10 +98,9 @@ elif [[ "$os" == "darwin"* ]]; then
   sed -i "" 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
   sed -i "" 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
   sed -i "" '$ a\
-POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' "$HOME/.zshrc"
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true\n' "$HOME/.zshrc"
   sed -i '' '$ a\
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' "$HOME/.zshrc"
-  rm "$HOME/.zshrc-e"
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh\n' "$HOME/.zshrc"
 
 
 elif [[ "$os" == "freebsd"* ]]; then
@@ -110,12 +108,11 @@ elif [[ "$os" == "freebsd"* ]]; then
   sed -i '' 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
   sed -i '' 's/plugins=(git)/plugins=(git kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
   sed -i '' '$ a\
-POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' "$HOME/.zshrc"
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true\n' "$HOME/.zshrc"
   sed -i '' '$ a\
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' "$HOME/.zshrc"
-  rm "$HOME/.zshrc-e"
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh\n' "$HOME/.zshrc"
 
-  
+
 else
   #Unknown
   exit 1
