@@ -83,6 +83,7 @@ RUNZSH="no" KEEP_ZSHRC="yes" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/
 echo "$DIR"
 
 ln -s "$DOTS_DIR/themes/nilslarson.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/nilslarson.zsh-theme" || echo ""
+ln -s "$DOTS_DIR/plugins/nilslarson" "$HOME/.oh-my-zsh/custom/plugins/nilslarson" || echo ""
 cp "$DOTS_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || echo ""
@@ -92,7 +93,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 if [[ "$os" == "linux-gnu"* ]]; then
   # Linux
   sed -i -e 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
-  sed -i -e 's/plugins=(git)/plugins=(git copypath copybuffer dirhistory copyfile kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
+  sed -i -e 's/plugins=(git)/plugins=(git copypath copybuffer dirhistory copyfile kubectl rsync sudo yarn z zsh-autosuggestions nils)/g' "$HOME/.zshrc"
   sed -i -e '$ a\
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 ' "$HOME/.zshrc"
@@ -104,7 +105,7 @@ POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 elif [[ "$os" == "darwin"* ]]; then
   # Mac OSX
   sed -i "" 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
-  sed -i "" 's/plugins=(git)/plugins=(git copypath copybuffer dirhistory copyfile kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
+  sed -i "" 's/plugins=(git)/plugins=(git copypath copybuffer dirhistory copyfile kubectl rsync sudo yarn z zsh-autosuggestions nils)/g' "$HOME/.zshrc"
   sed -i "" '$ a\
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 ' "$HOME/.zshrc"
@@ -116,7 +117,7 @@ POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 elif [[ "$os" == "freebsd"* ]]; then
   # FreeBSD
   sed -i '' 's#ZSH_THEME="robbyrussell"#ZSH_THEME="powerlevel10k/powerlevel10k"#g' "$HOME/.zshrc"
-  sed -i '' 's/plugins=(git)/plugins=(git copypath copybuffer dirhistory copyfile kubectl rsync sudo yarn z zsh-autosuggestions)/g' "$HOME/.zshrc"
+  sed -i '' 's/plugins=(git)/plugins=(git copypath copybuffer dirhistory copyfile kubectl rsync sudo yarn z zsh-autosuggestions nils)/g' "$HOME/.zshrc"
   sed -i '' '$ a\
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 ' "$HOME/.zshrc"
