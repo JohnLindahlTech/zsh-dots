@@ -43,7 +43,7 @@ elif [[ "$os" == "darwin"* ]]; then
 
   # Install hombrew if needed
   if ! which -s brew; then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 
   # Prefetch all binaries
