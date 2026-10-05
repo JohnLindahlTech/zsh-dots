@@ -67,3 +67,42 @@ update(){
     echo "No restart needed."
   fi
 }
+
+## SSH connection sharing (ControlMaster, see ~/.ssh/config)
+# Hosts to act on when none are given: every non-wildcard "Host" in ~/.ssh/config
+_nilslarson_ssh_hosts() {
+  awk '$1 == "Host" { for (i = 2; i <= NF; i++) if ($i !~ /[*?!]/) print $i }' ~/.ssh/config 2>/dev/null
+}
+
+# ssh-status [host...]  show which shared connections are alive
+ssh-status() {
+  local -a hosts=("$@")
+  (( $# )) || hosts=(${(f)"$(_nilslarson_ssh_hosts)"})
+  local h out found=0
+  for h in $hosts; do
+    if out=$(ssh -O check "$h" 2>&1); then
+      print -r -- "$h: $out"; found=1
+    elif (( $# )); then
+      print -r -- "$h: not connected"
+    fi
+  done
+  (( found || $# )) || print "No shared SSH connections."
+}
+
+# ssh-stop [host...]  graceful: no new sessions, master exits when the current ones end
+ssh-stop() {
+  local -a hosts=("$@")
+  (( $# )) || hosts=(${(f)"$(_nilslarson_ssh_hosts)"})
+  local h
+  for h in $hosts; do ssh -O stop "$h" 2>/dev/null && print "$h: stopping"; done
+}
+
+# ssh-kill [host...]  immediate: closes the master and every session on it (use when one hangs)
+ssh-kill() {
+  local -a hosts=("$@")
+  (( $# )) || hosts=(${(f)"$(_nilslarson_ssh_hosts)"})
+  local h
+  for h in $hosts; do ssh -O exit "$h" 2>/dev/null && print "$h: closed"; done
+}
+
+(( $+functions[compdef] )) && compdef _ssh ssh-status ssh-stop ssh-kill
