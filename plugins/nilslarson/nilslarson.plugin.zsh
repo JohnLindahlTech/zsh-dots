@@ -19,8 +19,18 @@ update(){
 
       echo "${GREEN}Autoremove apt${NOCOLOR}"
       $SUDO apt-get autoremove -y
+    elif (( $+commands[apk] )); then
+      local SUDO=sudo
+      (( EUID == 0 )) && SUDO=
+      (( EUID != 0 && ! $+commands[sudo] && $+commands[doas] )) && SUDO=doas
+
+      echo "${GREEN}Update apk${NOCOLOR}"
+      $SUDO apk update
+
+      echo "${GREEN}Upgrade apk${NOCOLOR}"
+      $SUDO apk upgrade
     else
-      echo "${RED}LINUX WITHOUT APT NOT YET SUPPORTED.${NOCOLOR}"
+      echo "${RED}LINUX WITHOUT APT OR APK NOT YET SUPPORTED.${NOCOLOR}"
     fi
 
 
