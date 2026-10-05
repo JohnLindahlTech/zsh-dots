@@ -5,7 +5,7 @@
             print "%{$fg[magenta]%}"
         fi
     }
-    local hn='$(host_color)$(hostname -s)%{$reset_color%}'
+    local hn='$(host_color)%m%{$reset_color%}'
 
     PROMPT="${hn} %(?:%{$fg_bold[green]%}[%?] ➜ :%{$fg_bold[red]%}[%?] ➜ )"
     PROMPT+='%{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
