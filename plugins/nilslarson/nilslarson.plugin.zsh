@@ -4,7 +4,10 @@ update(){
 
   ## LINUX SPECIFICS
   if [[ "$OS" == "linux-gnu"* ]]; then
-    if (( $+commands[apt-get] )); then
+    if (( $+commands[midclt] )); then
+      # TrueNAS: the OS is managed from its UI/updater; never apt it by hand
+      echo "${RED}TRUENAS DETECTED: skipping apt, update the OS from the TrueNAS UI.${NOCOLOR}"
+    elif (( $+commands[apt-get] )); then
       local SUDO=sudo
       (( EUID == 0 )) && SUDO=
 

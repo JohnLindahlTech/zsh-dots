@@ -5,6 +5,8 @@
 #
 #   --config-only   only (re)apply config files; no packages, clones or downloads
 #   --dry-run       show what would change as a diff, write nothing (implies --config-only)
+#   --prune-plugins also remove plugins we no longer ship (see REMOVED_PLUGINS) from a
+#                   single-line plugins=(...) in ~/.zshrc. Opt-in: merge never removes otherwise.
 #   --on-conflict   what to do when a file you already have would be changed:
 #                     ask (default) | abort | overwrite | merge | skip
 #                   also settable with DOTS_ON_CONFLICT. Without a terminal, ask means skip.
@@ -20,14 +22,18 @@ OMZ_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/
 
 TOOLS=(git zsh curl wget nano htop)
 WANT_PLUGINS=(git sudo z zsh-autosuggestions nilslarson)
+# Dropped from the defaults; only removed from an existing ~/.zshrc with --prune-plugins
+REMOVED_PLUGINS=(copypath copybuffer dirhistory copyfile kubectl rsync yarn)
 
 CONFIG_ONLY=0
+PRUNE=0
 DRY_RUN=0
 POLICY=${DOTS_ON_CONFLICT:-ask}
 
 for arg in "$@"; do
   case $arg in
     --config-only)   CONFIG_ONLY=1 ;;
+    --prune-plugins) PRUNE=1 ;;
     --dry-run)       DRY_RUN=1; CONFIG_ONLY=1 ;;
     --on-conflict=*) POLICY=${arg#*=} ;;
     -h|--help)       sed -n '2,/^$/p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
@@ -231,7 +237,21 @@ apply_zshrc() {
     for (( j = plug_start; j <= $#L; j++ )); do
       [[ ${L[j]%%\#*} == *\)* ]] && { plug_end=$j; break }
     done
-    if (( plug_end )); then
+    if (( plug_end && plug_start == plug_end )) && [[ $L[plug_start] =~ '^plugins=\(([^)#]*)\)(.*)$' ]]; then
+      # single-line list: rebuild it from words (optionally pruned), new plugins go
+      # before zsh-syntax-highlighting, which wants to be loaded last
+      local rest=$match[2]
+      have=(${=match[1]})
+      local -a words=($have)
+      (( PRUNE )) && words=(${words:|REMOVED_PLUGINS})
+      for p in $WANT_PLUGINS; do (( $words[(Ie)$p] )) || missing+=$p; done
+      if (( $#missing )); then
+        j=$words[(Ie)zsh-syntax-highlighting]
+        if (( j )); then words[j]=($missing zsh-syntax-highlighting); else words+=($missing); fi
+      fi
+      [[ "$have" == "$words" ]] || L[plug_start]="plugins=(${words})${rest}"
+    elif (( plug_end )); then
+      (( PRUNE )) && warn "Multi-line plugins=( ) in .zshrc: remove ${REMOVED_PLUGINS} by hand if you want them gone"
       text=${(j: :)${L[plug_start,plug_end]/\#*/}}
       text=${${text#*plugins=\(}%%\)*}
       have=(${=text})
